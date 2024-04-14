@@ -40,16 +40,16 @@
 2.  直接用vscode打开即可
 3.  无
 
-#### xxx
+#### 注意
 
-1.  xxxx
+1.  vite.config.js 中的 server 配置仅适用于开发环境，不适用于生产环境。如果您需要在生产环境中设置代理，请在服务器上配置反向代理。上面提供了nginx的配置，你只需将 http://localhost:8080/ 替换为自己的后端服务器即可
 2.  xxxx
 3.  xxxx
 
 #### 参与贡献
 
 1.  vue
-2.  新建 Feat_xxx 分支
+2.  黑马程序员
 3.  提交代码
 4.  新建 Pull Request
 
