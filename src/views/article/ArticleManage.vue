@@ -16,30 +16,17 @@ import {ElMessage} from 'element-plus'
 
 const tokenStore = useTokenStore();
 
-
 //上传成功的回调函数
 const uploadSuccess = (result)=>{
     articleModel.value.coverImg = result.data;
     console.log(result.data);
-
-
-
-
 }
-
-
-
-
-
-
-
 
 //回显文章分类
 const articleCategoryList = async ()=>{
     let result = await articleCategoryListService();
     categorys.value = result.data;
 }
-
 
 //文章分类数据模型
 const categorys = ref([
@@ -49,20 +36,6 @@ const categorys = ref([
         "categoryAlias": "my",
         "createTime": "2023-09-02 12:06:59",
         "updateTime": "2023-09-02 12:06:59"
-    },
-    {
-        "id": 4,
-        "categoryName": "娱乐",
-        "categoryAlias": "yl",
-        "createTime": "2023-09-02 12:08:16",
-        "updateTime": "2023-09-02 12:08:16"
-    },
-    {
-        "id": 5,
-        "categoryName": "军事",
-        "categoryAlias": "js",
-        "createTime": "2023-09-02 12:08:33",
-        "updateTime": "2023-09-02 12:08:33"
     }
 ])
 
@@ -128,8 +101,6 @@ const articleList = async ()=>{
 articleCategoryList()
 articleList();
 
-
-
 import {Plus} from '@element-plus/icons-vue'
 //控制抽屉是否显示
 const visibleDrawer = ref(false)
@@ -155,9 +126,6 @@ const addArticle = async (clickState)=>{
     articleList()
 
 }
-
-
-
 
 
 </script>
@@ -269,13 +237,8 @@ const addArticle = async (clickState)=>{
             
         </el-drawer>
 
-        
-    
     </el-card>
 </template>
-
-
-
 
 <style lang="scss" scoped>
 .pagination-container {  

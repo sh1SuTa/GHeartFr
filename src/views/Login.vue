@@ -4,6 +4,8 @@ import { ref } from 'vue'
 
 //导入elementplusUi
 import { ElMessage } from 'element-plus';
+//导入接口
+import {userRegisterService,userLoginService} from '@/api/user.js'
 
 //控制注册与登录表单的显示， 默认显示注册
 const isRegister = ref(false)
@@ -41,20 +43,13 @@ const rules = {
     ]
 }
 
-//导入接口
-import {userRegisterService,userLoginService} from '@/api/user.js'
+
 
 //调用后台接口完成注册
 const register = async ()=>{
     //registerData是一个响应式对象，获取值要.value
     let result = await userRegisterService(registerData.value);
-    // if(result.code === 0){
-    //     //成功
-    //     alert(result.msg ? result.msg : '注册成功');
-    // }else{
-    //     //注册失败
-    //     alert('注册失败')
-    // }
+    
     ElMessage.success(result.msg ? result.msg : '注册成功');
 }
 
@@ -71,16 +66,13 @@ const tokenStore = useTokenStore();
 const login = async ()=>{
     //调用接口，完成登录
     let result = await userLoginService(registerData.value);
-    // if(result.code === 0){
-    //     alert(result.msg ? result.msg : '登录成功')
-    // }else{
-    //     alert('登录失败')
-    // }
+    if (result.code === 1 ){
+        ElMessage.error(result.message ? result.message : '前端：账号或密码错误');
+    }
     ElMessage.success(result.msg ? result.msg : '登录成功');
-
     //把得到的token存储在pinia中
     tokenStore.setToken(result.data)
-
+   
     //登录成功进行跳转
     router.push('/')
 }
@@ -166,10 +158,14 @@ const clearRegisterData = ()=>{
     background-color: #fff;
 
     .bg {
-        background: url('@/assets/logo2.png') no-repeat 60% center / 240px auto,
-            url('@/assets/login_bg.jpg') no-repeat center / cover;
+        // 中间的图片
+        background: 
+        // url('@/assets/logo2.png') no-repeat 60% center / 240px auto,
+        //大图片
+            url('@/assets/logoleaf.png') no-repeat center / cover;
         border-radius: 0 20px 20px 0;
     }
+
 
     .form {
         display: flex;

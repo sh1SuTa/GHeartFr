@@ -1,5 +1,5 @@
 <script setup>
-import useUserInfoStore from '@/stores/userInfo'
+import useUserInfoStore from '@/stores/userInfo.js'
 import { ref } from 'vue'
 import {userInfoUpdateService} from '@/api/user.js'
 import {ElMessage} from 'element-plus'
@@ -17,8 +17,8 @@ const rules = {
     nickname: [
         { required: true, message: '请输入用户昵称', trigger: 'blur' },
         {
-            pattern: /^\S{2,10}$/,
-            message: '昵称必须是2-10位的非空字符串',
+            pattern: /^\S{2,20}$/,
+            message: '昵称必须是2-20位的非空字符串',
             trigger: 'blur'
         }
     ],
@@ -37,6 +37,7 @@ const updateUserInfo = async ()=>{
     userInfoStore.setInfo(userInfo.value)
 }
 </script>
+
 <template>
     <el-card class="page-container">
         <template #header>

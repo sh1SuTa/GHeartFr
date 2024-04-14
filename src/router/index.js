@@ -10,6 +10,7 @@ import ArticleManageVue from '@/views/article/ArticleManage.vue'
 import UserAvatarVue from '@/views/user/UserAvatar.vue'
 import UserInfoVue from '@/views/user/UserInfo.vue'
 import UserResetPasswordVue from '@/views/user/UserResetPassword.vue'
+import VpnViewVue from "@/views/vpnnet/VpnView.vue";
 
 
 //定义路由关系
@@ -21,7 +22,8 @@ const routes = [
         {path: '/article/manage',component: ArticleManageVue},
         {path: '/user/info',component: UserInfoVue},
         {path: '/user/avatar',component: UserAvatarVue},
-        {path: '/user/resetPassword',component: UserResetPasswordVue}
+        {path: '/user/resetPassword',component: UserResetPasswordVue},
+        {path: '/userVPN',component: VpnViewVue}
     ] }
 ]
 

@@ -1,0 +1,90 @@
+<template>  
+    <div class="download-page">  
+      <h1>下载梯子</h1>  
+      <div class="download-options">  
+        <a :href="androidLink" class="download-button" download>下载安卓版</a>  
+        <a :href="iosLink" class="download-button" download>下载苹果版</a>  
+        <a :href="pcLink" class="download-button" download>下载电脑版</a>  
+      </div>  
+    </div>  
+
+    
+    <div class="centered-text">  
+      <h2>请不要泄漏密钥，否则将禁用您的账户</h2>  
+      <p>密钥泄漏会使网速变慢</p>  
+      
+    </div>  
+
+    <el-table :data="categorys" style="width: 100%">
+            <el-table-column label="序号" width="100" type="index"> </el-table-column>
+            <el-table-column label="节点名称" prop="categoryName"></el-table-column>
+            <el-table-column label="节点信息" prop="categoryAlias"></el-table-column>
+
+            <el-table-column label="操作" width="100">
+                
+                <template #default="{ row }">
+                    <!-- 编辑按钮 -->
+                    <el-button :icon="Edit" circle plain type="primary" @click="showDialog(row)"></el-button>
+                    <!-- 删除按钮 -->
+                    <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button>
+                </template>
+                
+            </el-table-column>
+
+            <template #empty>
+                <el-empty description="没有数据" />
+            </template>
+        </el-table>
+
+</template>  
+    
+<script setup>  
+
+import { ref, onMounted } from 'vue';
+import { userInfoService } from '@/api/user.js'
+    
+  const androidLink = ref('http://123.57.186.79/download/Outline.apk'); // 替换为实际的安卓下载链接  
+  const iosLink = ref('https://apps.apple.com/us/app/outline-app/id1356177741');
+  const pcLink = ref('https://web-tlias1145.oss-cn-beijing.aliyuncs.com/download/OutlineInstall.exe'); 
+  const isMember = ref(false);
+  
+ 
+
+ 
+
+</script>  
+    
+<style scoped>  
+.centered-text {  
+  text-align: center;  
+}  
+.centered-text p {  
+  margin: 0;  
+  padding: 0;  
+} 
+  .download-page {  
+    text-align: center;  
+    padding: 20px;  
+  }  
+    
+  .download-options {  
+    margin-top: 20px;  
+  }  
+    
+  .download-button {  
+    display: inline-block;  
+    margin: 0 10px;  
+    padding: 10px 20px;  
+    background-color: #4CAF50; /* 绿色 */  
+    border: none;  
+    color: white;  
+    text-align: center;  
+    text-decoration: none;  
+    font-size: 16px;  
+    cursor: pointer;  
+  }  
+    
+  .download-button:hover {  
+    background-color: #45a049; /* 深绿色 */  
+  }  
+</style>

@@ -2,16 +2,16 @@
 
 //导入axios  npm install axios
 import axios from 'axios';
-
-//导入elementplusUi
+//导入element-plusUi
 import { ElMessage } from 'element-plus';
 
-//定义一个变量,记录公共的前缀  ,  baseURL
-// const baseURL = 'http://localhost:8080';
+import { useTokenStore } from '@/stores/token.js';
+
+//定义一个变量,记录公共的前缀  , const baseURL = 'http://localhost:8080';
 const baseURL = '/api';
 const instance = axios.create({baseURL})
 
-import { useTokenStore } from '@/stores/token.js';
+let hasShownLoginPrompt = false; 
 
 //添加请求拦截器
 instance.interceptors.request.use(
@@ -31,17 +31,8 @@ instance.interceptors.request.use(
     }
 )
 
-
-
-
-
-
-
-
-
 //导入路由器
 import  router  from '@/router';
-
 
 //添加响应拦截器
 instance.interceptors.response.use(
@@ -62,15 +53,17 @@ instance.interceptors.response.use(
     },
     err=>{
         //判断响应状态码，401未登录，跳转登录登录页面
-        if(err.response.states === 401){
-            ElMessage.error('请先登录')
-            router.push('/login')
+        if(err.response.status === 401){
+            if (!hasShownLoginPrompt) {  
+                hasShownLoginPrompt = true;  
+                ElMessage.error('请先登录');  
+                router.push('/login');  
+            }
         }else{
             ElMessage.error('服务异常')
         }
-        
-        alert('服务异常');
-
+         // 重置登录提示标志位  
+        hasShownLoginPrompt.value = false;  
         //异步的状态转化成失败的状态
         return Promise.reject(err);
     }

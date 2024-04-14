@@ -1,14 +1,6 @@
 <script setup>
-import {
-    Management,
-    Promotion,
-    UserFilled,
-    User,
-    Crop,
-    EditPen,
-    SwitchButton,
-    CaretBottom
-} from '@element-plus/icons-vue'
+import {Management,Promotion,UserFilled,User,Crop,EditPen,SwitchButton,CaretBottom,Sort} from '@element-plus/icons-vue'
+
 import avatar from '@/assets/default.png'
 import { userInfoService } from '@/api/user.js'
 import useUserInfoStore from '@/stores/userInfo.js'
@@ -90,7 +82,7 @@ const handleCommand = async (command)=>{
                     <el-icon>
                         <Management />
                     </el-icon>
-                    <span>梯子节点</span>
+                    <span>节点信息</span>
                 </el-menu-item>
 
                 <el-menu-item index="/article/manage">
@@ -99,6 +91,7 @@ const handleCommand = async (command)=>{
                     </el-icon>
                     <span>文章管理</span>
                 </el-menu-item>
+
                 <el-sub-menu >
                     <template #title>
                         <el-icon>
@@ -106,29 +99,33 @@ const handleCommand = async (command)=>{
                         </el-icon>
                         <span>个人中心</span>
                     </template>
-
                     <el-menu-item index="/user/info">
                         <el-icon>
                             <User />
                         </el-icon>
                         <span>基本资料</span>
                     </el-menu-item>
-
                     <el-menu-item index="/user/avatar">
                         <el-icon>
                             <Crop />
                         </el-icon>
                         <span>更换头像</span>
                     </el-menu-item>
-
                     <el-menu-item index="/user/resetPassword">
                         <el-icon>
                             <EditPen />
                         </el-icon>
                         <span>重置密码</span>
                     </el-menu-item>
-
                 </el-sub-menu>
+
+                <el-menu-item index="/userVPN">
+                    <el-icon>
+                        <Sort />
+                    </el-icon>
+                    <span>梯子应用</span>
+                </el-menu-item>
+
             </el-menu>
 
         </el-aside>
@@ -177,7 +174,6 @@ const handleCommand = async (command)=>{
                  <div>
                     &nbsp;域名捐赠者：
                     <a href="https://tenapi.cn/v2/qqcard?qq=2964141308" class="juanz" >xxxia</a>
-                    <!-- a标签点击跳转QQ链接 -->
                 </div>
             </el-footer>
 
@@ -196,7 +192,7 @@ const handleCommand = async (command)=>{
 
         &__logo {
             height: 120px;
-            background: url('@/assets/logo.png') no-repeat center / 120px auto;
+            background: url('@/assets/logo.png') no-repeat center / 200px auto;
         }
 
         .el-menu {
@@ -205,7 +201,7 @@ const handleCommand = async (command)=>{
     }
 
     .el-header {
-        background-color: #fff;
+        background-color: #d3d3d3;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -235,12 +231,14 @@ const handleCommand = async (command)=>{
     }
 }
 .nickname {  
-  color: pink; /* 设置文字颜色为粉色 */  
+  color: rgba(255, 251, 0, 0.993); /* 设置文字颜色为粉色 */  
 } 
 .zhanz {
     color: red;
+    text-decoration: none;
 }
 .juanz{
     color: green;
+    text-decoration: none;
 }
 </style>
