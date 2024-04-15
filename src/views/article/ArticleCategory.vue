@@ -120,7 +120,7 @@ const deleteCategory = (row)=>{
 
         <template #header>
             <div class="header">
-                <span>梯子节点</span>
+                <span>文章分类</span>
 
                 <div class="extra">
                     <!-- 添加分类按钮 -->
@@ -132,8 +132,8 @@ const deleteCategory = (row)=>{
 
         <el-table :data="categorys" style="width: 100%">
             <el-table-column label="序号" width="100" type="index"> </el-table-column>
-            <el-table-column label="节点名称" prop="categoryName"></el-table-column>
-            <el-table-column label="节点信息" prop="categoryAlias"></el-table-column>
+            <el-table-column label="文章分类" prop="categoryName"></el-table-column>
+            <el-table-column label="分类别名" prop="categoryAlias"></el-table-column>
 
             <el-table-column label="操作" width="100">
                 
