@@ -15,10 +15,10 @@
       
     </div>  
 
-    <el-table :data="categorys" style="width: 100%">
+    <el-table :data="vpnData" style="width: 100%">
             <el-table-column label="序号" width="100" type="index"> </el-table-column>
-            <el-table-column label="节点名称" prop="categoryName"></el-table-column>
-            <el-table-column label="节点信息" prop="categoryAlias"></el-table-column>
+            <el-table-column label="节点名称" prop="node"></el-table-column>
+            <el-table-column label="节点信息" prop="nodeDescribe"></el-table-column>
 
             <el-table-column label="操作" width="100">
                 
@@ -34,7 +34,7 @@
             <template #empty>
                 <el-empty description="没有数据" />
             </template>
-        </el-table>
+    </el-table>
 
 </template>  
     
@@ -42,13 +42,23 @@
 
 import { ref, onMounted } from 'vue';
 import { userInfoService } from '@/api/user.js'
+import { vpnDataListService } from '@/api/vpn.js'
     
-  const androidLink = ref('http://123.57.186.79/download/Outline.apk'); // 替换为实际的安卓下载链接  
-  const iosLink = ref('https://apps.apple.com/us/app/outline-app/id1356177741');
-  const pcLink = ref('https://web-tlias1145.oss-cn-beijing.aliyuncs.com/download/OutlineInstall.exe'); 
-  const isMember = ref(false);
+const androidLink = ref('http://123.57.186.79/download/Outline.apk'); // 替换为实际的安卓下载链接  
+const iosLink = ref('https://apps.apple.com/us/app/outline-app/id1356177741');
+const pcLink = ref('https://web-tlias1145.oss-cn-beijing.aliyuncs.com/download/OutlineInstall.exe'); 
+const isMember = ref(false);
   
- 
+const vpnData = ref([ ])
+
+
+
+//声明异步函数
+const vpnDataList = async ()=>{
+    let result = await vpnDataListService();
+    vpnData.value = result.data;
+}
+vpnDataList();
 
  
 
