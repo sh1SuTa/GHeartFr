@@ -32,7 +32,7 @@
             </el-table-column>
 
             <template #empty>
-                <el-empty description="没有数据" />
+                <el-empty description="你不是会员" />
             </template>
     </el-table>
 

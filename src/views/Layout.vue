@@ -82,7 +82,7 @@ const handleCommand = async (command)=>{
                     <el-icon>
                         <Management />
                     </el-icon>
-                    <span>节点信息</span>
+                    <span>文章分类</span>
                 </el-menu-item>
 
                 <el-menu-item index="/article/manage">
@@ -135,7 +135,7 @@ const handleCommand = async (command)=>{
             
             <!-- 头部区域 -->
             <el-header>
-                <div>puti叶子成员：<strong class="nickname">{{userInfoStore.info.nickname}}</strong></div>
+                <div class="member-label">puti叶子成员：<strong class="nickname">{{userInfoStore.info.nickname}}</strong></div>
 
                 <!-- 下拉菜单 command被点击后触发，可以在事件函数上可以声明一个参数接收条目对应的指令-->
                 <el-dropdown placement="bottom-end" @command="handleCommand">
@@ -184,6 +184,9 @@ const handleCommand = async (command)=>{
 </template>
 
 <style lang="scss" scoped>
+.member-label {  
+    color: white; /* 设置文本颜色为白色 */  
+}
 .layout-container {
     height: 100vh;
 
@@ -201,7 +204,7 @@ const handleCommand = async (command)=>{
     }
 
     .el-header {
-        background-color: #d3d3d3;
+        background-color: #404040;
         display: flex;
         align-items: center;
         justify-content: space-between;
