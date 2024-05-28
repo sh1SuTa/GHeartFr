@@ -1,5 +1,5 @@
 <script setup>
-import {Management,Promotion,UserFilled,User,Crop,EditPen,SwitchButton,CaretBottom,Sort} from '@element-plus/icons-vue'
+import {Management,Promotion,UserFilled,User,Crop,EditPen,SwitchButton,CaretBottom,Sort,Reading} from '@element-plus/icons-vue'
 
 import avatar from '@/assets/default.png'
 import { userInfoService } from '@/api/user.js'
@@ -125,6 +125,13 @@ const handleCommand = async (command)=>{
                     </el-icon>
                     <span>梯子应用</span>
                 </el-menu-item>
+
+                <!-- 阅读文章 -->
+                <el-menu-item index="/article/read">
+                    <el-icon><Reading /></el-icon>
+                    <span>阅读文章</span>
+                </el-menu-item>
+                
 
             </el-menu>
 

@@ -59,7 +59,7 @@ const register = async ()=>{
 import { useRouter } from 'vue-router'
 import {useTokenStore} from '@/stores/token.js'
 
-const router = useRouter()
+const router = useRouter();
 const tokenStore = useTokenStore();
 
 //登录函数

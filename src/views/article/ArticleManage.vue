@@ -6,7 +6,7 @@ import {
 
 import { ref } from 'vue'
 //导入article.js
-import {articleCategoryListService,articleListService,articleAddService} from '@/api/article.js'
+import {articleCategoryListService,articleListService,articleAddService,articleUpdateService} from '@/api/article.js'
 //导入token
 import {useTokenStore} from '@/stores/token.js'
 
@@ -63,7 +63,7 @@ const articles = ref([
 //分页条数据模型
 const pageNum = ref(1)//当前页
 const total = ref(20)//总条数
-const pageSize = ref(4)//每页条数
+const pageSize = ref(10)//每页条数
 
 //当每页条数发生了变化，调用此函数
 const onSizeChange = (size) => {
@@ -75,6 +75,8 @@ const onCurrentChange = (num) => {
     pageNum.value = num
     articleList()
 }
+
+
 
 //获取文章列表数据
 const articleList = async ()=>{
@@ -127,6 +129,40 @@ const addArticle = async (clickState)=>{
 
 }
 
+const editArticle = async (clickState)=>{
+    articleModel.value.state = clickState;
+    let result = await articleUpdateService(articleModel.value);
+    ElMessage.success(result.message ? result.message : '前端：修改成功')
+    visibleEdit.value = false;
+    articleList()
+}
+
+//控制添加分类弹窗
+const visibleEdit = ref(false)
+
+//显示编辑弹窗
+const showFileList = (row)=>{
+  visibleEdit.value = true;
+  //数据拷贝
+  articleModel.value = {...row};
+
+
+
+  
+}
+
+//清空数据模型
+const clearArticleModel = ()=>{
+  articleModel.value = {
+    title: '',
+    categoryId: '',
+    coverImg: '',
+    content:'',
+    state:''
+  }
+}
+
+
 
 </script>
 
@@ -171,21 +207,30 @@ const addArticle = async (clickState)=>{
     </el-form>
 
     <!-- 文章列表 -->
-    <el-table :data="articles" style="width: 100%">
-      <el-table-column label="文章标题" width="400" prop="title"></el-table-column>
+    <el-table :data="articles" style="width: 100%" >
+      
+      <el-table-column label="文章标题" width="400" prop="title" ></el-table-column>
       <el-table-column label="分类" prop="categoryName"></el-table-column>
       <el-table-column label="发表时间" prop="createTime"> </el-table-column>
       <el-table-column label="状态" prop="state"></el-table-column>
-      <el-table-column label="操作" width="100">
+      <el-table-column label="操作" width="150">
         <template #default="{ row }">
-          <el-button :icon="Edit" circle plain type="primary"></el-button>
+          <!-- 编辑按钮 -->
+          <el-button :icon="Edit" circle plain type="primary" @click="showFileList(row)"></el-button>
+          <!-- 删除按钮 -->
           <el-button :icon="Delete" circle plain type="danger"></el-button>
+          
+          
+          
         </template>
       </el-table-column>
       <template #empty>
         <el-empty description="没有数据" />
       </template>
     </el-table>
+
+    
+    
     
     
     <!-- 分页条 -->
@@ -198,7 +243,7 @@ const addArticle = async (clickState)=>{
     
 
     
-    <!-- 抽屉 -->
+    <!--添加文章抽屉 -->
         <el-drawer v-model="visibleDrawer" title="添加文章" direction="rtl" size="50%">
             <!-- 添加文章表单 -->
             <el-form :model="articleModel" label-width="100px" >
@@ -212,7 +257,6 @@ const addArticle = async (clickState)=>{
                     </el-select>
                 </el-form-item>
                 <el-form-item label="文章封面">
-
                      <!-- auto-upload是否自动上传图片 action设置服务器接口路径 name上传名字 headers上传请求头 onsuccess成功的回调函数-->
                     <el-upload class="avatar-uploader" :auto-upload="true" :show-file-list="false"
                     action="/api/upload" name="file" :headers="{'Authorization':tokenStore.token}"
@@ -222,7 +266,6 @@ const addArticle = async (clickState)=>{
                             <Plus />
                         </el-icon>
                     </el-upload>
-
                 </el-form-item>
                 <el-form-item label="文章内容">
                     <div class="editor">
@@ -234,7 +277,45 @@ const addArticle = async (clickState)=>{
                     <el-button type="info" @click="addArticle('草稿')">草稿</el-button>
                 </el-form-item>
             </el-form>
-            
+        </el-drawer>
+
+        <!-- 修改文章抽屉 -->
+        <el-drawer v-model="visibleEdit" title="修改文章" direction="rtl" size="50%">
+          <!-- 修改文章菜单 -->
+          <el-form :model="articleModel" label-width="100px" >
+              <el-form-item label="文章标题" >
+                  <el-input v-model="articleModel.title" placeholder="请输入标题"></el-input>
+              </el-form-item>
+              <el-form-item label="文章分类">
+                  <el-select placeholder="请选择" v-model="articleModel.categoryId">
+                      <el-option v-for="c in categorys" :key="c.id" :label="c.categoryName" :value="c.id">
+                      </el-option>
+                  </el-select>
+              </el-form-item>
+              <el-form-item label="文章封面">
+                <!-- 自动上传图片 -->
+                <el-upload class="avatar-uploader" :auto-upload="true" :show-file-list="false"
+                action="/api/upload" name="file" :headers="{'Authorization':tokenStore.token}"
+                :on-success="uploadSuccess">
+                  <img v-if="articleModel.coverImg" :src="articleModel.coverImg" class="avatar" />
+                  <el-icon v-else class="avatar-uploader-icon">
+                      <Plus />
+                  </el-icon>
+                </el-upload>
+              </el-form-item>
+
+              <el-form-item label="文章内容">
+                <div class="editor">
+                  <quill-editor theme="snow" v-model:content="articleModel.content" contentType="html"></quill-editor>
+                </div>
+              </el-form-item>
+
+              <el-form-item>
+                <el-button type="primary" @click="editArticle('已发布')">发布</el-button>
+                <el-button type="info" @click="editArticle('草稿')">草稿</el-button>
+              </el-form-item>
+
+          </el-form>
         </el-drawer>
 
     </el-card>

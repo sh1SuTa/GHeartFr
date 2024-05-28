@@ -12,6 +12,7 @@ import UserInfoVue from '@/views/user/UserInfo.vue'
 import UserResetPasswordVue from '@/views/user/UserResetPassword.vue'
 import VpnViewVue from "@/views/vpnnet/VpnView.vue";
 
+import ArticleDetail from '@/components/ArticleDetail.vue'
 
 //定义路由关系
 const routes = [
@@ -23,8 +24,11 @@ const routes = [
         {path: '/user/info',component: UserInfoVue},
         {path: '/user/avatar',component: UserAvatarVue},
         {path: '/user/resetPassword',component: UserResetPasswordVue},
-        {path: '/userVPN',component: VpnViewVue}
+        {path: '/userVPN',component: VpnViewVue},
+        {path: '/article/read',component: ArticleDetail}
     ] }
+    
+    
 ]
 
 //创建路由器
