@@ -30,6 +30,11 @@ export const articleListService = (params)=>{
     return request.get('/article',{params:params})
 }
 
+//阅读文章列表查询
+export const articleReadService = (params)=>{
+    return request.get('/article/read',{params:params})
+}
+
 //文章添加
 export const articleAddService = (articleData)=>{
     return request.post('/article',articleData)

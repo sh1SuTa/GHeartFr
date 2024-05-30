@@ -4,7 +4,7 @@ import {
     Delete
 } from '@element-plus/icons-vue'
 
-import { ref } from 'vue'
+import { ref,nextTick } from 'vue'
 //导入article.js
 import {articleCategoryListService,articleListService,articleAddService,articleUpdateService} from '@/api/article.js'
 //导入token
@@ -162,7 +162,13 @@ const clearArticleModel = ()=>{
   }
 }
 
-
+// 定义重置方法
+const resetForm = async () => {
+  categoryId.value = ''; // 使用.value来修改ref的值
+  state.value = '';
+  await nextTick(); // 等待DOM更新
+  articleList(); // 调用搜索逻辑
+};
 
 </script>
 
@@ -202,7 +208,8 @@ const clearArticleModel = ()=>{
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="articleList">搜索</el-button>
-        <el-button @click="categoryId='';state=''">重置</el-button>
+        <!-- <el-button @click="categoryId='';state=''">重置</el-button> -->
+        <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -317,6 +324,7 @@ const clearArticleModel = ()=>{
 
           </el-form>
         </el-drawer>
+
 
     </el-card>
 </template>
