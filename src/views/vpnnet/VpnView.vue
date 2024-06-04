@@ -17,16 +17,17 @@
 
     <el-table :data="vpnData" style="width: 100%">
             <el-table-column label="序号" width="100" type="index"> </el-table-column>
-            <el-table-column label="节点名称" prop="node"></el-table-column>
+            <el-table-column label="节点秘钥" prop="node"></el-table-column>
             <el-table-column label="节点信息" prop="nodeDescribe"></el-table-column>
 
             <el-table-column label="操作" width="100">
                 
                 <template #default="{ row }">
                     <!-- 编辑按钮 -->
-                    <el-button :icon="Edit" circle plain type="primary" @click="showDialog(row)"></el-button>
+                    
+                    <el-button :icon="CopyDocument" circle plain type="primary" @click="copyNodeKeyAndCloseDialog(row.node)"></el-button>
                     <!-- 删除按钮 -->
-                    <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button>
+                    <!-- <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button> -->
                 </template>
                 
             </el-table-column>
@@ -40,11 +41,15 @@
     
 <script setup>  
 
+import {
+  CopyDocument
+} from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue';
 import { userInfoService } from '@/api/user.js'
 import { vpnDataListService } from '@/api/vpn.js'
+import { ElMessage } from 'element-plus';
     
-const androidLink = ref('http://123.57.186.79/download/Outline.apk'); // 替换为实际的安卓下载链接  
+const androidLink = ref('https://web-tlias1145.oss-cn-beijing.aliyuncs.com/download/outline.apk'); // 替换为实际的安卓下载链接  
 const iosLink = ref('https://apps.apple.com/us/app/outline-app/id1356177741');
 const pcLink = ref('https://web-tlias1145.oss-cn-beijing.aliyuncs.com/download/OutlineInstall.exe'); 
 const isMember = ref(false);
@@ -60,6 +65,21 @@ const vpnDataList = async ()=>{
 }
 vpnDataList();
 
+async function copyNodeKeyAndCloseDialog(nodeKey) {
+  try {
+    await navigator.clipboard.writeText(nodeKey);
+    
+    ElMessage({
+      message: '节点秘钥已复制',
+      type: 'success',
+    });
+  } catch (error) {
+    ElMessage({
+      message: '复制节点秘钥失败',
+      type: 'error',
+    });
+  }
+}
  
 
 </script>  
