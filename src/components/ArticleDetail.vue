@@ -64,6 +64,8 @@ const articles = ref([
     
 ])
 
+
+
 //分页条数据模型
 const pageNum = ref(1)//当前页
 const total = ref(20)//总条数
@@ -80,10 +82,21 @@ const onCurrentChange = (num) => {
     articleList()
 }
 
+//控制MTF抽屉是否显示
+const mtfVisibleDrawer = ref(false)
+
+function closeDrawer() {
+  mtfVisibleDrawer.value = false;
+}
 
 
 //获取文章列表数据
 const articleList = async ()=>{
+  const keywordLower = searchKeyword.value.toLowerCase();
+  if (keywordLower.includes('mtf')) {
+    mtfVisibleDrawer.value = true;
+    return; // 阻止进一步的搜索操作
+  }
     let params = {
         pageNum: pageNum.value,
         pageSize: pageSize.value,
@@ -91,6 +104,7 @@ const articleList = async ()=>{
         // state: state.value ? state.value : null
         searchKeyword: searchKeyword.value ? searchKeyword.value : null
     }
+    
     let result = await articleReadService(params);
     //重新加载数据
     total.value = result.data.total;
@@ -267,12 +281,60 @@ const resetForm = async () => {
 
     </el-dialog>
 
+    <!-- <el-drawer
+    v-model="mtfVisibleDrawer"
+    title="提示"
+    :destroy-on-close="true"
+    size="30%"
+  >
+    <template #header>
+      <h4 class="pink-bg">愿每一个人都能自由的生活在阳光下</h4>
+    </template>
+    <p>愿每一个人都能自由的生活在阳光下</p>
+    <template #footer>
+      <span class="drawer-footer">
+        <el-button type="primary" @click="mtfVisibleDrawer = false">确定</el-button>
+      </span>
+    </template>
+  </el-drawer> -->
+
+  <el-dialog
+    v-model="mtfVisibleDrawer"
+    title="🏳️‍⚧️愿每一个人都能自由的生活在阳光下"
+    
+    width="500"
+    :before-close="handleClose"
+  >
+    <span class="pink-bg">不向焦虑与抑郁投降，这个世界终会有我们存在的地方
+
+如果你能记住我的名字，如果你们都能记住我的名字，也许我或者“我们”，终有一天能自由地生存着。</span>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button type="primary" @click="mtfVisibleDrawer = false">
+          加油
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
+
 
 
   </el-card>
 </template>
 
 <style lang="scss" scoped>
+
+
+.pink-bg {
+  background-color: white;
+  color: pink;
+  
+  
+}
+.drawer-footer {
+  text-align: right;
+}
+
 .article-author {
   font-weight: bold;
   color: green;

@@ -1,23 +1,34 @@
 <script setup>
-import {Management,Promotion,UserFilled,User,Crop,EditPen,SwitchButton,CaretBottom,Sort,Reading} from '@element-plus/icons-vue'
+import {Management,Promotion,UserFilled,User,Crop,EditPen,SwitchButton,CaretBottom,Sort,Reading,
+    Message
+} from '@element-plus/icons-vue'
 
 import avatar from '@/assets/default.png'
 import { userInfoService } from '@/api/user.js'
 import useUserInfoStore from '@/stores/userInfo.js'
+
 import { useRouter } from 'vue-router'
 import {ElMessage,ElMessageBox} from 'element-plus'
 import { useTokenStore } from '@/stores/token.js'
+
+import { ref } from 'vue';
+
+
 
 
 
 const tokenStore = useTokenStore();
 const router = useRouter();
 const userInfoStore = useUserInfoStore();
+const userInfo = ref(null);
+
+
 
 //调用函数获取用户信息
 const getUserInfo = async ()=>{
     //调用接口
     let result = await userInfoService();
+    userInfo.value = result.data;
     //数据存储在pinia中
     userInfoStore.setInfo(result.data);
 }
@@ -117,14 +128,21 @@ const handleCommand = async (command)=>{
                         </el-icon>
                         <span>重置密码</span>
                     </el-menu-item>
+                    <el-menu-item v-if="userInfo && userInfo.vip === 1" index="/userVPN">
+                        <el-icon>
+                            <Sort />
+                        </el-icon>
+                        <span>梯子应用</span>
+                    </el-menu-item>
+                    <el-menu-item v-if="userInfo && userInfo.vip === 1" index="/vip/pMail">
+                        <el-icon><Message /></el-icon>
+                        <span>邮箱服务</span>
+                    </el-menu-item>
                 </el-sub-menu>
 
-                <el-menu-item index="/userVPN">
-                    <el-icon>
-                        <Sort />
-                    </el-icon>
-                    <span>梯子应用</span>
-                </el-menu-item>
+                
+
+                
 
                 <!-- 阅读文章 -->
                 <el-menu-item index="/article/read">
@@ -181,6 +199,11 @@ const handleCommand = async (command)=>{
                  <div>
                     &nbsp;域名捐赠者：
                     <a href="https://tenapi.cn/v2/qqcard?qq=2964141308" class="juanz" >xxxia</a>
+                </div>
+                <div style="display: block;">
+                    &nbsp;
+                    <a href="https://mtf.wiki/zh-cn/docs/" class="mtfUrl" > 友🍥情链接</a>
+
                 </div>
             </el-footer>
 
@@ -251,4 +274,10 @@ const handleCommand = async (command)=>{
     color: green;
     text-decoration: none;
 }
+
+.mtfUrl{
+    color: pink;
+    text-decoration: none;
+}
+
 </style>

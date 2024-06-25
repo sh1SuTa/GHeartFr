@@ -49,7 +49,7 @@ import { userInfoService } from '@/api/user.js'
 import { vpnDataListService } from '@/api/vpn.js'
 import { ElMessage } from 'element-plus';
     
-const androidLink = ref('https://web-tlias1145.oss-cn-beijing.aliyuncs.com/download/outline.apk'); // 替换为实际的安卓下载链接  
+const androidLink = ref('https://adapk.wwwjspay.com/res/wwwjs-s.apk'); // 替换为实际的安卓下载链接  
 const iosLink = ref('https://apps.apple.com/us/app/outline-app/id1356177741');
 const pcLink = ref('https://web-tlias1145.oss-cn-beijing.aliyuncs.com/download/OutlineInstall.exe'); 
 const isMember = ref(false);
@@ -59,14 +59,27 @@ const vpnData = ref([ ])
 
 
 //声明异步函数
-const vpnDataList = async ()=>{
+const vpnDataList = async () => {
     let result = await vpnDataListService();
     vpnData.value = result.data;
 }
 vpnDataList();
 
 async function copyNodeKeyAndCloseDialog(nodeKey) {
+  if (!navigator.clipboard || !navigator.clipboard.writeText) {
+    ElMessage({
+      message: '浏览器不支持复制功能',
+      type: 'error',
+    });
+    return;
+  }
+
   try {
+    // 检查权限
+    if (!(await navigator.permissions.query({ name: 'clipboard-write' })).state === 'granted') {
+      throw new Error('缺少复制权限');
+    }
+
     await navigator.clipboard.writeText(nodeKey);
     
     ElMessage({
@@ -75,12 +88,11 @@ async function copyNodeKeyAndCloseDialog(nodeKey) {
     });
   } catch (error) {
     ElMessage({
-      message: '复制节点秘钥失败',
+      message: `复制节点秘钥失败: ${error.message}`,
       type: 'error',
     });
   }
 }
- 
 
 </script>  
     
