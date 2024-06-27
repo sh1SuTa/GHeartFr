@@ -85,9 +85,17 @@ const onCurrentChange = (num) => {
 //控制MTF抽屉是否显示
 const mtfVisibleDrawer = ref(false)
 
+const killMeVisibleDrawer = ref(false)
+
 function closeDrawer() {
   mtfVisibleDrawer.value = false;
 }
+
+const closeKillMeDrawer = () => {
+  killMeVisibleDrawer.value = false;
+  ElMessage.success('我们终将抵达所有人都期待的美好未来');
+}
+
 
 
 //获取文章列表数据
@@ -96,6 +104,11 @@ const articleList = async ()=>{
   if (keywordLower.includes('mtf')) {
     mtfVisibleDrawer.value = true;
     return; // 阻止进一步的搜索操作
+  }
+  else if(keywordLower.includes('自杀')){
+    
+    killMeVisibleDrawer.value = true;
+    return; 
   }
     let params = {
         pageNum: pageNum.value,
@@ -123,6 +136,7 @@ articleCategoryList()
 articleList();
 
 import {Plus} from '@element-plus/icons-vue'
+// import { zhCN } from 'element-plus/dist/locale/zh-cn'
 //控制抽屉是否显示
 const visibleDrawer = ref(false)
 //添加表单数据模型
@@ -298,16 +312,9 @@ const resetForm = async () => {
     </template>
   </el-drawer> -->
 
-  <el-dialog
-    v-model="mtfVisibleDrawer"
-    title="🏳️‍⚧️愿每一个人都能自由的生活在阳光下"
-    
-    width="500"
-    :before-close="handleClose"
-  >
-    <span class="pink-bg">不向焦虑与抑郁投降，这个世界终会有我们存在的地方
-
-如果你能记住我的名字，如果你们都能记住我的名字，也许我或者“我们”，终有一天能自由地生存着。</span>
+  <el-dialog v-model="mtfVisibleDrawer" title="🏳️‍⚧️愿每一个人都能自由的生活在阳光下" width="500" :before-close="handleClose">
+    <span class="pink-bg">不向焦虑与抑郁投降，这个世界终会有我们存在的地方,
+      如果你能记住我的名字，如果你们都能记住我的名字，也许我或者“我们”，终有一天能自由地生存着。</span>
     <template #footer>
       <div class="dialog-footer">
         <el-button type="primary" @click="mtfVisibleDrawer = false">
@@ -317,6 +324,22 @@ const resetForm = async () => {
     </template>
   </el-dialog>
 
+  <el-dialog v-model="killMeVisibleDrawer" title="你不必独自面对一切" width="500" :before-close="handleClose">
+    <span class="pink-bg">如果累了，就放慢脚步看看路边的风景吧，没有人会一直用追逐的脚步。
+      我们想给处于疲惫、失意、难过中的你，提供一个让精神得以休憩的场所。
+      在这一方天地里,我们希望倾听你的心事烦恼，为你提供安抚和鼓励;
+      在这个世界里罗你并不孤单。
+      我们愿意，也期待着，给你—个温暖的怀抱。
+
+    </span>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button type="primary" @click="closeKillMeDrawer()">
+          加油
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
 
 
   </el-card>
