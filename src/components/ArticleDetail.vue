@@ -326,16 +326,17 @@ const resetForm = async () => {
 
   <el-dialog v-model="killMeVisibleDrawer" title="你不必独自面对一切" width="500" :before-close="handleClose">
     <span class="pink-bg">如果累了，就放慢脚步看看路边的风景吧，没有人会一直用追逐的脚步。
+      这个世界无比残酷，但我依然还爱着你。
       我们想给处于疲惫、失意、难过中的你，提供一个让精神得以休憩的场所。
       在这一方天地里,我们希望倾听你的心事烦恼，为你提供安抚和鼓励;
       在这个世界里罗你并不孤单。
-      我们愿意，也期待着，给你—个温暖的怀抱。
+      我们愿意，也期待着，给你—个温暖的怀抱，希望我们能同你继续前行。
 
     </span>
     <template #footer>
       <div class="dialog-footer">
         <el-button type="primary" @click="closeKillMeDrawer()">
-          加油
+          都说了要前进啦♪~
         </el-button>
       </div>
     </template>
