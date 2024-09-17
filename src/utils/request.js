@@ -60,8 +60,14 @@ instance.interceptors.response.use(
         if(err.response.status === 401){
             if (!hasShownLoginPrompt) {  
                 hasShownLoginPrompt = true;  
+                // 检测设备类型
+                const isMobile = window.innerWidth <= 768;
                 ElMessage.error('请先登录');  
-                router.push('/login');  
+                if (isMobile) {
+                    router.push('/loginM');
+                } else {
+                    router.push('/login');
+                }
             }
         }else{
             ElMessage.error('服务异常')

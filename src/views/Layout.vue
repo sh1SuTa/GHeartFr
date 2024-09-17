@@ -165,7 +165,7 @@ const handleCommand = async (command)=>{
             
             <!-- 头部区域 -->
             <el-header>
-                <div class="member-label">puti叶子成员：<strong class="nickname">{{userInfoStore.info.nickname}}</strong></div>
+                <div class="member-label">用户：<strong class="nickname">{{userInfoStore.info.nickname}}</strong></div>
 
                 <!-- 下拉菜单 command被点击后触发，可以在事件函数上可以声明一个参数接收条目对应的指令-->
                 <el-dropdown placement="bottom-end" @command="handleCommand">

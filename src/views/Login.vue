@@ -1,6 +1,27 @@
 <script setup>
 import { User, Lock,ChatDotSquare } from '@element-plus/icons-vue'
-import { ref } from 'vue'
+import { ref,onMounted, onUnmounted, nextTick } from 'vue'
+
+//默认不是移动设备
+const isMobile = ref(false);
+
+const checkIfMobile = () => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  return /android|iPad|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+};
+
+
+const redirectIfMobile = () => {
+  isMobile.value = checkIfMobile();
+
+  if (isMobile.value) {
+    router.push('/loginM');
+  }
+};
+
+onMounted(() => {
+  redirectIfMobile();
+});
 
 //导入elementplusUi
 import { ElMessage } from 'element-plus';
@@ -240,7 +261,7 @@ const useCodeRestPassword = async ()=>{
         background: 
         // url('@/assets/logo2.png') no-repeat 60% center / 240px auto,
         //大图片
-            url('@/assets/logoleaf.png') no-repeat center / cover;
+            url('@/assets/chenmoyu.png') no-repeat center / cover;
         border-radius: 0 20px 20px 0;
     }
 
