@@ -51,7 +51,7 @@ import { ElMessage } from 'element-plus';
     
 const androidLink = ref('https://adapk.wwwjspay.com/res/wwwjs-s.apk'); // 替换为实际的安卓下载链接  
 const iosLink = ref('https://apps.apple.com/us/app/outline-app/id1356177741');
-const pcLink = ref('https://web-tlias1145.oss-cn-beijing.aliyuncs.com/download/OutlineInstall.exe'); 
+const pcLink = ref('https://adapk.wwwjspay.com/res/tools.zip'); 
 const isMember = ref(false);
   
 const vpnData = ref([ ])

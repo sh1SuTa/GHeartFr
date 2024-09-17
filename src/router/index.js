@@ -14,6 +14,7 @@ import VpnViewVue from "@/views/vpnnet/VpnView.vue";
 
 import ArticleDetail from '@/components/ArticleDetail.vue'
 import pMail from '@/views/vpnnet/pMail.vue'
+import UserMessage from '@/views/user/UserMessage.vue'
 
 //定义路由关系
 const routes = [
@@ -27,7 +28,8 @@ const routes = [
         {path: '/user/resetPassword',component: UserResetPasswordVue},
         {path: '/userVPN',component: VpnViewVue},
         {path: '/article/read',component: ArticleDetail},
-        {path: '/vip/pMail',component: pMail}
+        {path: '/vip/pMail',component: pMail},
+        // {path: '/user/message',component: UserMessage}
     ] }
     
     

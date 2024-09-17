@@ -1,14 +1,14 @@
 <script setup>
-import { User, Lock } from '@element-plus/icons-vue'
+import { User, Lock,ChatDotSquare } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 
 //导入elementplusUi
 import { ElMessage } from 'element-plus';
 //导入接口
-import {userRegisterService,userLoginService} from '@/api/user.js'
+import {userRegisterService,userLoginService,userMailCodeService,useCodeRestPasswordService} from '@/api/user.js'
 
-//控制注册与登录表单的显示， 默认显示注册
-const isRegister = ref(false)
+//控制注册与登录表单的显示， 默认显示0注册，1登录，2重置密码
+const isRegister = ref(1)
 
 //定义数据模型
 const registerData = ref({
@@ -16,6 +16,13 @@ const registerData = ref({
     password: '',
     rePassword: ''
 }) 
+
+//定义忘记密码模型
+const forgetData = ref({
+    username: '',
+    newPwd: '',
+    code: ''
+})
 
 //校验密码的函数
 const checkRePassword = (rule,value,callback)=>{
@@ -59,6 +66,8 @@ const register = async ()=>{
 import { useRouter } from 'vue-router'
 import {useTokenStore} from '@/stores/token.js'
 
+
+
 const router = useRouter();
 const tokenStore = useTokenStore();
 
@@ -85,6 +94,42 @@ const clearRegisterData = ()=>{
         rePassword: ''
     }
 }
+
+//发送验证码
+const useMailSendCode = async ()=>{
+    
+    startCountdown()
+    let result = await userMailCodeService(forgetData.value.username);
+    if (result.code === 1 ){
+        ElMessage.error(result.message ? result.message : '前端：用户不存在');
+    }else{
+        ElMessage.success(result.message ? result.message : '发送成功');
+    }
+
+    
+}
+
+const isCounting = ref(false);
+const remainingTime = ref(60);
+
+const startCountdown = () => {
+  if (!isCounting.value) {
+    isCounting.value = true;
+    let timer = setInterval(() => {
+      remainingTime.value--;
+      if (remainingTime.value <= 0) {
+        clearInterval(timer);
+        isCounting.value = false;
+        remainingTime.value = 60; // 重置时间
+      }
+    }, 1000);
+  }
+};
+
+const useCodeRestPassword = async ()=>{
+    let result = await useCodeRestPasswordService(forgetData.value);
+
+}
 </script>
 
 <template>
@@ -93,7 +138,7 @@ const clearRegisterData = ()=>{
         <el-col :span="6" :offset="3" class="form">
 
             <!-- 注册表单 -->
-            <el-form ref="form" size="large" autocomplete="off" v-if="isRegister" :model="registerData" :rules="rules">
+            <el-form ref="form" size="large" autocomplete="off" v-if="isRegister === 0" :model="registerData" :rules="rules">
                 <el-form-item>
                     <h1>注册</h1>
                 </el-form-item>
@@ -114,14 +159,14 @@ const clearRegisterData = ()=>{
                     </el-button>
                 </el-form-item>
                 <el-form-item class="flex">
-                    <el-link type="info" :underline="false" @click="isRegister = false;clearRegisterData()">
+                    <el-link type="info" :underline="false" @click="isRegister = 1;clearRegisterData()">
                         ← 返回
                     </el-link>
                 </el-form-item>
             </el-form>
 
             <!-- 登录表单 -->
-            <el-form ref="form" size="large" autocomplete="off" v-else :model="registerData" :rules="rules">
+            <el-form ref="form" size="large" autocomplete="off" v-else-if="isRegister === 1" :model="registerData" :rules="rules">
                 <el-form-item>
                     <h1>登录</h1>
                 </el-form-item>
@@ -134,7 +179,7 @@ const clearRegisterData = ()=>{
                 <el-form-item class="flex">
                     <div class="flex">
                         <el-checkbox>记住我</el-checkbox>
-                        <el-link type="primary" :underline="false">忘记密码？</el-link>
+                        <el-link type="primary" :underline="false" @click="isRegister = 2">忘记密码？</el-link>
                     </div>
                 </el-form-item>
                 <!-- 登录按钮 -->
@@ -142,8 +187,41 @@ const clearRegisterData = ()=>{
                     <el-button class="button" type="primary" auto-insert-space @click="login">登录</el-button>
                 </el-form-item>
                 <el-form-item class="flex">
-                    <el-link type="info" :underline="false" @click="isRegister = true;clearRegisterData()">
+                    <el-link type="info" :underline="false" @click="isRegister = 0;clearRegisterData()">
                         注册 →
+                    </el-link>
+                </el-form-item>
+            </el-form>
+
+            <!-- 忘记密码？ -->
+            <el-form ref="form" size="large" autocomplete="off" v-else="isRegister === 2" :model="forgetData" :rules="rules">
+                <el-form-item>
+                    <h1>重置密码</h1>
+                </el-form-item>
+                <el-form-item prop="username">
+                    <el-input :prefix-icon="User" placeholder="请输入用户名" v-model="forgetData.username"></el-input>
+                </el-form-item>
+                <el-form-item prop="newPwd">
+                    <el-input name="newPwd" :prefix-icon="Lock" type="password" placeholder="请输入新密码" v-model="forgetData.newPwd"></el-input>
+                </el-form-item>
+                <el-form-item prop="code">
+                    <el-input show-word-limit maxlength="4" :prefix-icon="ChatDotSquare"  placeholder="请输入验证码" v-model="forgetData.code"></el-input>
+                    <!-- {{forgetData.username}} -->
+                </el-form-item>
+                <el-form-item class="flex">
+                    <div v-if=forgetData.username>
+                        <button v-if="!isCounting" @click="useMailSendCode">发送验证码</button>
+                        <span v-else>{{ remainingTime }} 秒后重新发送</span>
+                        
+                    </div>
+                </el-form-item>
+                <!-- 按钮 -->
+                <el-form-item>
+                    <el-button class="button" type="primary" auto-insert-space @click="useCodeRestPassword">重置密码</el-button>
+                </el-form-item>
+                <el-form-item class="flex">
+                    <el-link type="info" :underline="false" @click="isRegister = 1;clearRegisterData()">
+                        返回 →
                     </el-link>
                 </el-form-item>
             </el-form>

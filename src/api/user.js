@@ -38,3 +38,19 @@ export const userAvatarUpdateService = (avatarUrl) =>{
     return request.patch('/user/updateAvatar',params)
 }
 
+
+export const userMailCodeService = (username) =>{
+    
+    return request.get('/user/getCode', {
+        params: {
+            username: username
+        }
+    })
+}
+
+
+export const useCodeRestPasswordService = (forgetData)=>{
+
+    return request.patch('/user/forgetPwd',forgetData)
+
+}

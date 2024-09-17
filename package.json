@@ -15,8 +15,12 @@
     "element-plus": "^2.6.2",
     "pinia": "^2.1.7",
     "pinia-persistedstate-plugin": "^0.1.0",
+    "pixi-live2d-display": "^0.4.0",
+    "pixi.js": "^6.5.10",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-live2d": "^0.0.1",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

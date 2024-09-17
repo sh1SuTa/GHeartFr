@@ -291,7 +291,10 @@ const resetForm = async () => {
       <p v-if="articleModel.categoryName" class="category-name">分类：{{ articleModel.categoryName }}</p>
 
       <!-- 关闭按钮 -->
-      <el-button slot="footer" @click="visibleList = false">关闭</el-button>
+      <!-- <el-button slot="footer" @click="visibleList = false">关闭</el-button> -->
+      <template v-slot:footer>
+        <el-button @click="visibleList = false">关闭</el-button>
+      </template>
 
     </el-dialog>
 

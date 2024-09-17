@@ -7,8 +7,12 @@ import { ElMessage } from 'element-plus';
 
 import { useTokenStore } from '@/stores/token.js';
 
-//定义一个变量,记录公共的前缀  , const baseURL = 'http://localhost:8080';
+//定义一个变量,记录公共的前缀  
+// const baseURL = 
+
+// 'http://localhost:8080';
 const baseURL = '/api';
+// const baseURL = 'http://123.57.186.79:8080';
 const instance = axios.create({baseURL})
 
 let hasShownLoginPrompt = false; 
@@ -63,7 +67,7 @@ instance.interceptors.response.use(
             ElMessage.error('服务异常')
         }
          // 重置登录提示标志位  
-        hasShownLoginPrompt.value = false;  
+        hasShownLoginPrompt = false;  
         //异步的状态转化成失败的状态
         return Promise.reject(err);
     }

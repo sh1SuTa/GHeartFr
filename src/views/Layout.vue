@@ -21,6 +21,7 @@ const tokenStore = useTokenStore();
 const router = useRouter();
 const userInfoStore = useUserInfoStore();
 const userInfo = ref(null);
+const zhanzhang = ref("鲸鱼娘西丝特official");
 
 
 
@@ -79,6 +80,8 @@ const handleCommand = async (command)=>{
 
 <template>
 
+    
+    
     <!-- element-plus中的容器 -->
     <el-container class="layout-container">
         <!-- 左侧菜单 -->
@@ -134,10 +137,12 @@ const handleCommand = async (command)=>{
                         </el-icon>
                         <span>梯子应用</span>
                     </el-menu-item>
-                    <el-menu-item v-if="userInfo && userInfo.vip === 1" index="/vip/pMail">
+                    <!-- 
+                    <el-menu-item index="/user/message">
                         <el-icon><Message /></el-icon>
-                        <span>邮箱服务</span>
+                        <span>消息列表</span>
                     </el-menu-item>
+                    -->
                 </el-sub-menu>
 
                 
@@ -194,7 +199,7 @@ const handleCommand = async (command)=>{
             <!-- 底部区域 -->
             <el-footer>
                 <div>
-                    站长：<a href="https://tenapi.cn/v2/qqcard?qq=2903039102" class="zhanz" >鲸鱼娘西丝特official</a>
+                    站长：<a href="https://tenapi.cn/v2/qqcard?qq=2903039102" class="zhanz" >{{zhanzhang}}</a>
                 </div>
                  <div>
                     &nbsp;域名捐赠者：
@@ -210,7 +215,7 @@ const handleCommand = async (command)=>{
         </el-container>
 
     </el-container>
-
+    
 </template>
 
 <style lang="scss" scoped>
