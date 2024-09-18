@@ -38,7 +38,7 @@
 
 1.  将dish放在nginx下html即可
 2.  直接用vscode打开即可
-3.  无
+3.  node_modules中的依赖管理可自行npm install
 
 #### 注意
 
@@ -46,11 +46,11 @@
 2.  xxxx
 3.  xxxx
 
-#### 参与贡献
+#### 技术栈
 
 1.  vue
-3.  提交代码
-4.  新建 Pull Request
+3.  npm
+4.  el-plus
 
 
 #### 特技
