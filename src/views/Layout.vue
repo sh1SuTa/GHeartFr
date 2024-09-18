@@ -22,17 +22,33 @@ const router = useRouter();
 const userInfoStore = useUserInfoStore();
 const userInfo = ref(null);
 const zhanzhang = ref("鲸鱼娘西丝特official");
+import TransgenderFlag from '@/components/TransgenderFlag.vue';
+
+const replaceFlag = (text) => {
+  // 创建一个临时容器来渲染组件
+  const container = document.createElement('div');
+  render(h(TransgenderFlag), container);
+  const flagHtml = container.innerHTML;
+  // 替换文本中的🏳️‍⚧️字符
+  return text.replace(/🏳️‍⚧️/g, flagHtml);
+};
 
 
-
-//调用函数获取用户信息
-const getUserInfo = async ()=>{
-    //调用接口
+const getUserInfo = async () => {
+  try {
+    // 调用用户信息接口
     let result = await userInfoService();
     userInfo.value = result.data;
-    //数据存储在pinia中
-    userInfoStore.setInfo(result.data);
-}
+
+    // 替换 nickname 中的🏳️‍⚧️字符
+    const formattedNickname = replaceFlag(result.data.nickname);
+
+    // 更新数据存储
+    userInfoStore.setInfo({ ...result.data, nickname: formattedNickname });
+  } catch (error) {
+    console.error('获取用户信息失败:', error);
+  }
+};
 getUserInfo();
 
 //条目被点击后的函数
@@ -165,12 +181,13 @@ const handleCommand = async (command)=>{
             
             <!-- 头部区域 -->
             <el-header>
-                <div class="member-label">用户：<strong class="nickname">{{userInfoStore.info.nickname}}</strong></div>
+                
+                <div class="member-label"><strong class="nickname" v-html="userInfoStore.info.nickname"></strong></div>
 
                 <!-- 下拉菜单 command被点击后触发，可以在事件函数上可以声明一个参数接收条目对应的指令-->
                 <el-dropdown placement="bottom-end" @command="handleCommand">
                     <span class="el-dropdown__box">
-                        <el-avatar :src="userInfoStore.info.userPic ? userInfoStore.info.userPic : avatar" />
+                        <el-avatar :src="userInfoStore.info.userPic ? userInfoStore.info.userPic : avatar" shape='square'/>
                         <el-icon>
                             <CaretBottom />
                         </el-icon>

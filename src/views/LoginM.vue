@@ -71,7 +71,7 @@
             </el-form-item>
             <el-form-item>
                 <div v-if="forgetData.username" class="flex items-center">
-                    <button v-if="!isCounting" @click="useMailSendCode">发送验证码</button>
+                    <el-button v-if="!isCounting" @click="useMailSendCode" color="#626aef" round class="custom-size-button">发送验证码</el-button>
                     <span v-else>{{ remainingTime }} 秒后重新发送</span>
                 </div>
             </el-form-item>
@@ -86,6 +86,14 @@
 </template>
   
   <style scoped>
+  .custom-size-button {  
+  /* 设置你想要的宽度和高度，或者其他样式 */  
+  width: 80px; /* 举例 */  
+  height: 30px; /* 举例，但通常按钮的高度不需要显式设置，因为 Element UI 会处理它 */  
+  /* 如果需要，可以覆盖 Element UI 的内边距、字体大小等 */  
+  padding: 0 20px; /* 举例 */  
+  font-size: 12px; /* 按钮内文字大小 */  
+}
   .form-container {
     background-image: url(@/assets/image/loginM.jpg);
     background-size: cover;
@@ -269,7 +277,6 @@ const clearRegisterData = ()=>{
 
 //发送验证码
 const useMailSendCode = async ()=>{
-    
     startCountdown()
     let result = await userMailCodeService(forgetData.value.username);
     if (result.code === 1 ){
@@ -298,8 +305,16 @@ const startCountdown = () => {
   }
 };
 
+//点击重置按钮后调用后端接口
 const useCodeRestPassword = async ()=>{
     let result = await useCodeRestPasswordService(forgetData.value);
+    if(result.code === 1){
+        ElMessage.error(result.message ? result.message : '前端：验证码错误');
+
+    }else{
+        ElMessage.success(result.message ? result.message : '重置成功');
+        clearRegisterData();
+    }
 
 }
 </script>

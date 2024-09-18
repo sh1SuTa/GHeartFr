@@ -22,5 +22,3 @@ app.use(pinia)
 app.use(router)
 app.use(ElementPlus,{locale});
 app.mount('#app');
-
-

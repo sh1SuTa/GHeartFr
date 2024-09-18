@@ -4,7 +4,7 @@ import {
     Delete
 } from '@element-plus/icons-vue'
 
-import { ref,nextTick } from 'vue'
+import { ref,nextTick,onMounted } from 'vue'
 //导入article.js
 import {articleCategoryListService,articleListService,articleAddService,articleUpdateService} from '@/api/article.js'
 //导入token
@@ -13,7 +13,10 @@ import {useTokenStore} from '@/stores/token.js'
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import {ElMessage} from 'element-plus'
+import { useRouter } from 'vue-router';  // 使用 Vue Router 的 useRouter 钩子
 
+
+const router = useRouter();
 const tokenStore = useTokenStore();
 
 //上传成功的回调函数
@@ -237,6 +240,7 @@ onMounted(() => {
 
     <!-- 文章列表 -->
     <el-table :data="articles" style="width: 100%" >
+    
       
       <el-table-column label="文章标题" width="400" prop="title" ></el-table-column>
       <el-table-column label="分类" prop="categoryName"></el-table-column>

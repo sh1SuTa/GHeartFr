@@ -14,6 +14,8 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import {ElMessage} from 'element-plus'
 
+
+
 const tokenStore = useTokenStore();
 
 //上传成功的回调函数
@@ -63,7 +65,7 @@ const articles = ref([
 //分页条数据模型
 const pageNum = ref(1)//当前页
 const total = ref(20)//总条数
-const pageSize = ref(10)//每页条数
+const pageSize = ref(5)//每页条数
 
 //当每页条数发生了变化，调用此函数
 const onSizeChange = (size) => {
@@ -216,24 +218,22 @@ const resetForm = async () => {
     <!-- 文章列表 -->
     <el-table :data="articles" style="width: 100%" >
       
-      <el-table-column label="文章标题" width="400" prop="title" ></el-table-column>
-      <el-table-column label="分类" prop="categoryName"></el-table-column>
-      <el-table-column label="发表时间" prop="createTime"> </el-table-column>
-      <el-table-column label="状态" prop="state"></el-table-column>
-      <el-table-column label="操作" width="150">
+      <el-table-column label="文章标题" width="200" prop="title" ></el-table-column>
+      
+      
+      <el-table-column label="操作" width="100">
         <template #default="{ row }">
           <!-- 编辑按钮 -->
           <el-button :icon="Edit" circle plain type="primary" @click="showFileList(row)"></el-button>
           <!-- 删除按钮 -->
           <el-button :icon="Delete" circle plain type="danger"></el-button>
-          
-          
-          
         </template>
       </el-table-column>
+      
       <template #empty>
         <el-empty description="没有数据" />
       </template>
+      
     </el-table>
 
     
@@ -245,13 +245,12 @@ const resetForm = async () => {
       <el-pagination  v-model:current-page="pageNum"  v-model:page-size="pageSize"  :page-sizes="[3, 5, 10, 15]"  layout="prev, pager, next, jumper, sizes, total"  
       :total="total"  @size-change="onSizeChange"   @current-change="onCurrentChange"   style="margin-top: 20px;"   /> 
     </div>
-    <!-- <el-pagination v-model:current-page="pageNum" v-model:page-size="pageSize" :page-sizes="[3, 5, 10, 15]" layout="jumper, total, sizes, prev, pager, next"
-    background:total="total" @size-change="onSizeChange"  @current-change="onCurrentChange"  style="margin-top: 20px; justify-content: flex-end"/> -->
+    
     
 
     
     <!--添加文章抽屉 -->
-        <el-drawer v-model="visibleDrawer" title="添加文章" direction="rtl" size="50%">
+        <el-drawer v-model="visibleDrawer" title="添加文章" direction="rtl" size="100%">
             <!-- 添加文章表单 -->
             <el-form :model="articleModel" label-width="100px" >
                 <el-form-item label="文章标题" >
@@ -274,7 +273,7 @@ const resetForm = async () => {
                         </el-icon>
                     </el-upload>
                 </el-form-item>
-                <el-form-item label="文章内容">
+                <el-form-item label="文章内容" class="flex-container" label-position='right' label-width="60%" >
                     <div class="editor">
                         <quill-editor theme="snow" v-model:content="articleModel.content" contentType="html"></quill-editor>
                     </div>
@@ -287,7 +286,7 @@ const resetForm = async () => {
         </el-drawer>
 
         <!-- 修改文章抽屉 -->
-        <el-drawer v-model="visibleEdit" title="修改文章" direction="rtl" size="50%">
+        <el-drawer v-model="visibleEdit" title="修改文章" direction="rtl" size="100%">
           <!-- 修改文章菜单 -->
           <el-form :model="articleModel" label-width="100px" >
               <el-form-item label="文章标题" >
@@ -311,8 +310,9 @@ const resetForm = async () => {
                 </el-upload>
               </el-form-item>
 
-              <el-form-item label="文章内容">
-                <div class="editor">
+              <el-form-item label="文章内容" class="flex-container" label-position='right' label-width="60%" >
+                
+                <div class="editor flex-item">
                   <quill-editor theme="snow" v-model:content="articleModel.content" contentType="html"></quill-editor>
                 </div>
               </el-form-item>
@@ -330,6 +330,25 @@ const resetForm = async () => {
 </template>
 
 <style lang="scss" scoped>
+
+
+.flex-container {  
+  display: flex;  
+  flex-direction: column; /* 或者根据需要调整为 row */  
+  align-items: flex-start; /* 或者根据需要调整 */  
+  color: pink;
+}  
+  
+.flex-item {  
+  /* 根据需要添加样式，如宽度、边距等 */  
+  width: 100%; /* 如果需要全宽 */  
+  margin-top: 10px; /* 或其他间距调整 */  
+}  
+  
+/* 如果需要限制 Quill 编辑器的宽度 */  
+.quill-editor {  
+  width: calc(100% - 20px); /* 减去一些边距 */  
+}  
 .pagination-container {  
   display: flex;  
   justify-content: flex-end;  
