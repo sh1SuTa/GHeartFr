@@ -7,17 +7,16 @@
       <rect width="100" height="12" y="36" fill="#F7A8B8"/> <!-- 粉色 -->
       <rect width="100" height="12" y="48" fill="#55CDFC"/> <!-- 蓝色 -->
     </svg>
-  </template>
+</template>
   
-  <script setup>
+<script setup>
 
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .transgender-flag {
     width: 26px; /* 调整为你需要的大小 */
     height: 20px;
     display: block;
   }
-  </style>
-  
+</style>

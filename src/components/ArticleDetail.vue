@@ -10,7 +10,7 @@ import {articleCategoryListService,articleReadService,articleAddService,articleU
 //导入token
 import {useTokenStore} from '@/stores/token.js'
 
-import { QuillEditor } from '@vueup/vue-quill'
+
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import {ElMessage} from 'element-plus'
 
@@ -207,6 +207,8 @@ const resetForm = async () => {
   articleList(); // 调用搜索逻辑
 };
 
+import TransgenderFlag from '@/components/TransgenderFlag.vue';
+
 </script>
 
 <template>
@@ -298,24 +300,18 @@ const resetForm = async () => {
 
     </el-dialog>
 
-    <!-- <el-drawer
-    v-model="mtfVisibleDrawer"
-    title="提示"
-    :destroy-on-close="true"
-    size="30%"
-  >
-    <template #header>
-      <h4 class="pink-bg">愿每一个人都能自由的生活在阳光下</h4>
-    </template>
-    <p>愿每一个人都能自由的生活在阳光下</p>
-    <template #footer>
-      <span class="drawer-footer">
-        <el-button type="primary" @click="mtfVisibleDrawer = false">确定</el-button>
-      </span>
-    </template>
-  </el-drawer> -->
+   
 
-  <el-dialog v-model="mtfVisibleDrawer" title="🏳️‍⚧️愿每一个人都能自由的生活在阳光下" width="500" :before-close="handleClose">
+  <el-dialog v-model="mtfVisibleDrawer"  width="500" :before-close="handleClose">
+    <!-- 使用具名插槽自定义标题 -->  
+    <template #title>  
+      <div class="custom-dialog-title">  
+        <!-- 显示TransgenderFlag组件 -->  
+        <TransgenderFlag class="flag-icon" />  
+        <!-- 接着是标题文本 -->  
+        <span class="title-text">愿每一个人都能自由的生活在阳光下</span>  
+      </div>  
+    </template>  
     <span class="pink-bg">不向焦虑与抑郁投降，这个世界终会有我们存在的地方,
       如果你能记住我的名字，如果你们都能记住我的名字，也许我或者“我们”，终有一天能自由地生存着。</span>
     <template #footer>
@@ -350,6 +346,20 @@ const resetForm = async () => {
 </template>
 
 <style lang="scss" scoped>
+.custom-dialog-title {  
+  display: flex; /* 使用 Flexbox 布局 */  
+  align-items: center; /* 垂直居中 */  
+  /* 如果需要，可以添加一些额外的间距 */  
+  gap: 8px; /* 在 Flex 容器中，gap 属性可以添加元素之间的间距 */  
+}  
+  
+/* 根据需要调整 TransgenderFlag 组件的大小和位置 */  
+.flag-icon {  
+  /* 假设 TransgenderFlag 是一个图标或小型图片，你可能需要设置其宽度和高度 */  
+  width: 32px; /* 示例宽度 */  
+  height: 32px; /* 示例高度 */  
+  /* 其他样式，如 margin、padding 等 */  
+}  
 
 
 .pink-bg {

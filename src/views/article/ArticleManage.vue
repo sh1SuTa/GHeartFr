@@ -148,10 +148,6 @@ const showFileList = (row)=>{
   visibleEdit.value = true;
   //数据拷贝
   articleModel.value = {...row};
-
-
-
-  
 }
 
 //清空数据模型
