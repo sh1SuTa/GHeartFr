@@ -176,21 +176,16 @@ const resetForm = async () => {
 
 //默认不是移动设备
 const isMobile = ref(false);
-
 const checkIfMobile = () => {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   return /android|iPad|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
 };
-
-
 const redirectIfMobile = () => {
   isMobile.value = checkIfMobile();
-
   if (isMobile.value) {
     router.push('/article/manage1');
   }
 };
-
 onMounted(() => {
   redirectIfMobile();
 });

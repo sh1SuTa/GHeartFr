@@ -7,6 +7,8 @@ import LayoutVue from '@/views/Layout.vue'
 import LayoutMVue from '@/views/LayoutM.vue'
 
 import ArticleCategoryVue from '@/views/article/ArticleCategory.vue'
+import ArticleCategoryMVue from '@/views/article/m/ArticleCategoryM.vue'
+
 import ArticleManageVue from '@/views/article/ArticleManage.vue'
 import ArticleManageMVue from '@/views/article/m/ArticleManageM.vue'
 
@@ -39,7 +41,7 @@ const routes = [
     //移动端路由
     {
         path: '/m',component: LayoutMVue,redirect: '/article/manage1' ,children:[
-            
+            {path: '/article/category1',component: ArticleCategoryMVue},
             {path: '/article/manage1',component: ArticleManageMVue},
             {path: '/user/info',component: UserInfoVue},
             {path: '/user/avatar',component: UserAvatarVue},
