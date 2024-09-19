@@ -16,6 +16,7 @@ import UserAvatarVue from '@/views/user/UserAvatar.vue'
 import UserInfoVue from '@/views/user/UserInfo.vue'
 import UserResetPasswordVue from '@/views/user/UserResetPassword.vue'
 import VpnViewVue from "@/views/vpnnet/VpnView.vue";
+import VpnViewMVue from "@/views/vpnnet/m/VpnViewM.vue";
 import LoginVueM from '@/views/LoginM.vue'
 
 import ArticleDetail from '@/components/ArticleDetail.vue'
@@ -46,7 +47,7 @@ const routes = [
             {path: '/user/info',component: UserInfoVue},
             {path: '/user/avatar',component: UserAvatarVue},
             {path: '/user/resetPassword',component: UserResetPasswordVue},
-            {path: '/userVPN',component: VpnViewVue},
+            {path: '/userVPN1',component: VpnViewMVue},
             {path: '/article/read',component: ArticleDetail},
             {path: '/vip/pMail',component: pMail},
             

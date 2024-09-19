@@ -103,60 +103,60 @@ const handleCommand = async (command)=>{
     <el-container class="layout-container">
 
         <!-- 左侧菜单，使用 el-drawer 来替代 -->
-        <el-drawer v-model="isDrawerVisible" direction="tbr" :with-header="false" class="custom-drawer">
+        <el-drawer v-model="isDrawerVisible" direction="tbr" :with-header="false">
             
-            <el-menu class="semi-transparent-menu" active-text-color="#ffd04b" text-color="#fff" router>
+            <el-menu class="semi-transparent-menu" active-text-color="#ffd04b"  router>
                 <el-menu-item index="/article/category">
                     <el-icon>
-                        <Management />
+                        <Management class="pink"/>
                     </el-icon>
-                    <span>文章分类</span>
+                    <span class="pink">文章分类</span>
                 </el-menu-item>
                 <el-menu-item index="/article/manage">
                     <el-icon>
-                        <Promotion />
+                        <Promotion class="pink"/>
                     </el-icon>
-                    <span>文章管理</span>
+                    <span class="pink">文章管理</span>
                 </el-menu-item>
 
                 <el-sub-menu>
                     <template #title>
                         <el-icon>
-                            <UserFilled />
+                            <UserFilled class="pink"/>
                         </el-icon>
-                        <span>个人中心</span>
+                        <span class="pink">个人中心</span>
                     </template>
                     <el-menu-item index="/user/info">
                         <el-icon>
-                            <User />
+                            <User class="pink"/>
                         </el-icon>
-                        <span>基本资料</span>
+                        <span class="pink">基本资料</span>
                     </el-menu-item>
                     <el-menu-item index="/user/avatar">
                         <el-icon>
-                            <Crop />
+                            <Crop class="pink"/>
                         </el-icon>
-                        <span>更换头像</span>
+                        <span class="pink">更换头像</span>
                     </el-menu-item>
                     <el-menu-item index="/user/resetPassword">
                         <el-icon>
-                            <EditPen />
+                            <EditPen class="pink"/>
                         </el-icon>
-                        <span>重置密码</span>
+                        <span class="pink">重置密码</span>
                     </el-menu-item>
-                    <el-menu-item v-if="userInfo && userInfo.vip === 1" index="/userVPN">
+                    <el-menu-item v-if="userInfo && userInfo.vip === 1" index="/userVPN1">
                         <el-icon>
-                            <Sort />
+                            <Sort class="pink"/>
                         </el-icon>
-                        <span>梯子应用</span>
+                        <span class="pink">梯子应用</span>
                     </el-menu-item>
                 </el-sub-menu>
 
                 <el-menu-item index="/article/read">
                     <el-icon>
-                        <Reading />
+                        <Reading class="pink"/>
                     </el-icon>
-                    <span>阅读文章</span>
+                    <span class="pink">阅读文章</span>
                 </el-menu-item>
             </el-menu>
             
@@ -180,7 +180,7 @@ const handleCommand = async (command)=>{
                     <span class="el-dropdown__box">
                         <el-avatar :src="userInfoStore.info.userPic ? userInfoStore.info.userPic : avatar" />
                         <el-icon>
-                            <CaretBottom />
+                            <CaretBottom class="pink"/>
                         </el-icon>
                     </span>
                     <template #dropdown>
@@ -217,7 +217,10 @@ const handleCommand = async (command)=>{
 
 <style lang="scss" scoped>
 
-
+.pink {  
+    color: rgba(230, 99, 201, 0.87); /* 将文本颜色改为蓝色 */  
+    
+}
 
 .semi-transparent-menu {  
   background-color: rgba(251, 177, 162, 0.5) !important; /* 使用 rgba 设置半透明背景色 */  
