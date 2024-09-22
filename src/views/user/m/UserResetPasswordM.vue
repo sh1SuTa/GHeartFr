@@ -1,6 +1,6 @@
 <script setup>  
 import {resetPasswordF} from '@/stores/resetPassword.js'
-import { ref,nextTick,onMounted } from 'vue'
+import { ref } from 'vue'
 import { ElMessage } from 'element-plus';
 import { useTokenStore } from '@/stores/token.js'
 import useUserInfoStore from '@/stores/userInfo.js'
@@ -78,23 +78,6 @@ const updatePassword = async ()=>{
 }
 
 
-//默认不是移动设备
-const isMobile = ref(false);
-const checkIfMobile = () => {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  return /android|iPad|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-};
-const redirectIfMobile = () => {
-  isMobile.value = checkIfMobile();
-  if (isMobile.value) {
-    router.push('/user/resetPassword1');
-  }
-};
-onMounted(() => {
-  redirectIfMobile();
-});
-
-
 </script>
 
 <template>  
@@ -105,8 +88,8 @@ onMounted(() => {
         </div>  
       </template>  
       <el-row>  
-        <el-col :span="12" >  
-          <el-form :model="restPassword" :rules="rules" ref="formRef" label-width="100px" size="large" >  
+        <el-col :span="12" :xs="22">  
+          <el-form :model="restPassword" :rules="rules" ref="formRef" label-width="100px" size="large">  
             <el-form-item label="旧密码" prop="old_pwd">  
               <el-input v-model="restPassword.old_pwd" ></el-input>  
             </el-form-item>  
@@ -125,8 +108,3 @@ onMounted(() => {
     </el-card>  
 </template>  
     
-<style scoped>
-
-
-
-</style>

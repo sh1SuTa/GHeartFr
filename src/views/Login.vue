@@ -211,7 +211,7 @@ const useCodeRestPassword = async ()=>{
             </el-form>
 
             <!-- 忘记密码？ -->
-            <el-form ref="form" size="large" autocomplete="off" v-else="isRegister === 2" :model="forgetData" :rules="rules">
+            <el-form ref="form" size="large" autocomplete="off" v-else-if="isRegister === 2" :model="forgetData" :rules="rules">
                 <el-form-item>
                     <h1>重置密码</h1>
                 </el-form-item>

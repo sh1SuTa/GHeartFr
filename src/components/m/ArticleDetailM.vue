@@ -4,7 +4,7 @@ import {
     Delete,View
 } from '@element-plus/icons-vue'
 
-import { ref,nextTick,onMounted  } from 'vue'
+import { ref  } from 'vue'
 //导入article.js
 import {articleCategoryListService,articleReadService,articleAddService,articleUpdateService} from '@/api/article.js'
 //导入token
@@ -209,21 +209,8 @@ const resetForm = async () => {
 
 import TransgenderFlag from '@/components/TransgenderFlag.vue';
 
-//默认不是移动设备
-// const isMobile = ref(false);
-// const checkIfMobile = () => {
-//   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-//   return /android|iPad|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-// };
-// const redirectIfMobile = () => {
-//   isMobile.value = checkIfMobile();
-//   if (isMobile.value) {
-//     router.push('/article/read1');
-//   }
-// };
-// onMounted(() => {
-//   redirectIfMobile();
-// });
+
+
 </script>
 
 <template>
@@ -252,9 +239,9 @@ import TransgenderFlag from '@/components/TransgenderFlag.vue';
     <!-- 文章列表 -->
     <el-table :data="articles" style="width: 100%">
 
-      <el-table-column label="文章标题" width="400" prop="title"></el-table-column>
-      <el-table-column label="分类" prop="categoryName"></el-table-column>
-      <el-table-column label="发表时间" prop="createTime"> </el-table-column>
+      <el-table-column label="文章标题" width="170" prop="title"></el-table-column>
+      <!-- <el-table-column label="分类" prop="categoryName"></el-table-column> -->
+      <!-- <el-table-column label="发表时间" prop="createTime"> </el-table-column> -->
       <!-- <el-table-column label="状态" prop="state"> </el-table-column> -->
       <el-table-column label="封面" prop="coverImg">
         <template #default="{ row }">

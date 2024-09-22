@@ -1,6 +1,6 @@
 <script setup>
 import { Plus, Upload } from '@element-plus/icons-vue'
-import {ref,onMounted} from 'vue'
+import {ref} from 'vue'
 import avatar from '@/assets/default.png'
 
 import useUserInfoStore from '@/stores/userInfo.js'
@@ -31,21 +31,6 @@ const updateAvatar = async ()=>{
 }
 
 
-//默认不是移动设备
-const isMobile = ref(false);
-const checkIfMobile = () => {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  return /android|iPad|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-};
-const redirectIfMobile = () => {
-  isMobile.value = checkIfMobile();
-  if (isMobile.value) {
-    router.push('/user/avatar1');
-  }
-};
-onMounted(() => {
-  redirectIfMobile();
-});
 
 </script>
 

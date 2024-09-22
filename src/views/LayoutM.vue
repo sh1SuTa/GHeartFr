@@ -106,13 +106,13 @@ const handleCommand = async (command)=>{
         <el-drawer v-model="isDrawerVisible" direction="tbr" :with-header="false">
             
             <el-menu class="semi-transparent-menu" active-text-color="#ffd04b"  router>
-                <el-menu-item index="/article/category">
+                <el-menu-item index="/article/category1">
                     <el-icon>
                         <Management class="pink"/>
                     </el-icon>
                     <span class="pink">文章分类</span>
                 </el-menu-item>
-                <el-menu-item index="/article/manage">
+                <el-menu-item index="/article/manage1">
                     <el-icon>
                         <Promotion class="pink"/>
                     </el-icon>
@@ -126,19 +126,21 @@ const handleCommand = async (command)=>{
                         </el-icon>
                         <span class="pink">个人中心</span>
                     </template>
-                    <el-menu-item index="/user/info">
+                    
+                    <el-menu-item index="/user/info1">
                         <el-icon>
                             <User class="pink"/>
                         </el-icon>
                         <span class="pink">基本资料</span>
                     </el-menu-item>
-                    <el-menu-item index="/user/avatar">
+                    
+                    <el-menu-item index="/user/avatar1">
                         <el-icon>
                             <Crop class="pink"/>
                         </el-icon>
                         <span class="pink">更换头像</span>
                     </el-menu-item>
-                    <el-menu-item index="/user/resetPassword">
+                    <el-menu-item index="/user/resetPassword1">
                         <el-icon>
                             <EditPen class="pink"/>
                         </el-icon>
@@ -152,7 +154,7 @@ const handleCommand = async (command)=>{
                     </el-menu-item>
                 </el-sub-menu>
 
-                <el-menu-item index="/article/read">
+                <el-menu-item index="/article/read1">
                     <el-icon>
                         <Reading class="pink"/>
                     </el-icon>

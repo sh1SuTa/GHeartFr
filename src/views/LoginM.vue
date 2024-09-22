@@ -53,7 +53,7 @@
         </el-form>
 
         <!-- 忘记密码 -->
-        <el-form ref="form" size="large" autocomplete="off" v-else="isRegister === 2" :model="forgetData" :rules="rules"
+        <el-form ref="form" size="large" autocomplete="off" v-else-if="isRegister === 2" :model="forgetData" :rules="rules"
             class="form">
             <el-form-item>
                 <h1 class="form-title">重置密码</h1>

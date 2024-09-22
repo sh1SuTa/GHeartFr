@@ -13,21 +13,7 @@ const categorys = ref([
 
 
 
-//默认不是移动设备
-const isMobile = ref(false);
-const checkIfMobile = () => {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  return /android|iPad|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-};
-const redirectIfMobile = () => {
-  isMobile.value = checkIfMobile();
-  if (isMobile.value) {
-    router.push('/article/');
-  }
-};
-onMounted(() => {
-  redirectIfMobile();
-});
+
 
 
 
@@ -149,7 +135,7 @@ const deleteCategory = (row)=>{
         </template>
 
         <el-table :data="categorys" style="width: 100%">
-            <el-table-column label="序号" width="100" type="index"> </el-table-column>
+            
             <el-table-column label="文章分类" prop="categoryName"></el-table-column>
             <el-table-column label="分类别名" prop="categoryAlias"></el-table-column>
 
