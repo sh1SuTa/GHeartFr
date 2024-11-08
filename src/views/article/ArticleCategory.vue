@@ -134,10 +134,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <el-card class="page-container">
+    <el-card class="page-container touming" >
 
-        <template #header>
-            <div class="header">
+        <template #header >
+            <div class="header ">
                 <span>文章分类</span>
 
                 <div class="extra">
@@ -148,12 +148,12 @@ onMounted(() => {
             </div>
         </template>
 
-        <el-table :data="categorys" style="width: 100%">
-            <el-table-column label="序号" width="100" type="index"> </el-table-column>
-            <el-table-column label="文章分类" prop="categoryName"></el-table-column>
-            <el-table-column label="分类别名" prop="categoryAlias"></el-table-column>
+        <el-table :data="categorys" style="width: 100%" class="qtouming">
+            <el-table-column class="qtouming" label="序号" width="100" type="index"> </el-table-column>
+            <el-table-column class="qtouming" label="文章分类" prop="categoryName"></el-table-column>
+            <el-table-column class="qtouming" label="分类别名" prop="categoryAlias"></el-table-column>
 
-            <el-table-column label="操作" width="100">
+            <el-table-column class="qtouming" label="操作" width="100">
                 
                 <template #default="{ row }">
                     <!-- 编辑按钮 -->
@@ -192,6 +192,12 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.touming{
+background-color: rgba(255, 255, 255, 0.5);
+}
+.qtouming{
+background-color: rgba(255, 255, 255, 0);
+}
 .page-container {
     min-height: 100%;
     box-sizing: border-box;

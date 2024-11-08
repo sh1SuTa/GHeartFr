@@ -1,44 +1,4 @@
-<template>  
-    <div class="download-page">  
-      <h1>下载梯子</h1>  
-      <div class="download-options">  
-        <a :href="androidLink" class="download-button" download>下载安卓版</a>  
-        <a :href="iosLink" class="download-button" download>下载苹果版</a>  
-        <a :href="pcLink" class="download-button" download>下载电脑版</a>  
-      </div>  
-    </div>  
 
-    
-    <div class="centered-text">  
-      <h2>请不要泄漏密钥，否则将禁用您的账户</h2>  
-      <p>密钥泄漏会使网速变慢</p>  
-      
-    </div>  
-
-    <el-table :data="vpnData" style="width: 100%">
-            <el-table-column label="序号" width="100" type="index"> </el-table-column>
-            <el-table-column label="节点秘钥" prop="node"></el-table-column>
-            <el-table-column label="节点信息" prop="nodeDescribe"></el-table-column>
-
-            <el-table-column label="操作" width="100">
-                
-                <template #default="{ row }">
-                    <!-- 编辑按钮 -->
-                    
-                    <el-button :icon="CopyDocument" circle plain type="primary" @click="copyNodeKeyAndCloseDialog(row.node)"></el-button>
-                    <!-- 删除按钮 -->
-                    <!-- <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button> -->
-                </template>
-                
-            </el-table-column>
-
-            <template #empty>
-                <el-empty description="你不是会员" />
-            </template>
-    </el-table>
-
-</template>  
-    
 <script setup>  
 
 import {
@@ -51,7 +11,7 @@ import { ElMessage } from 'element-plus';
     
 const androidLink = ref('https://adapk.wwwjspay.com/res/wwwjs-s.apk'); // 替换为实际的安卓下载链接  
 const iosLink = ref('https://apps.apple.com/us/app/outline-app/id1356177741');
-const pcLink = ref('https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe'); 
+const pcLink = ref('http://vpn.putileaf.top:8964/download/OutlineClient.exe'); 
 const isMember = ref(false);
   
 const vpnData = ref([ ])
@@ -95,8 +55,51 @@ async function copyNodeKeyAndCloseDialog(nodeKey) {
 }
 
 </script>  
+<template>  
+  <div class="download-page">  
+    <h1>下载梯子</h1>  
+    <div class="download-options">  
+      <a :href="androidLink" class="download-button" download>下载安卓版</a>  
+      <a :href="iosLink" class="download-button" download>下载苹果版</a>  
+      <a :href="pcLink" class="download-button" download>下载电脑版</a>  
+    </div>  
+  </div>  
+
+  
+  <div class="centered-text">  
+    <h2>请不要泄漏密钥，否则将禁用您的账户</h2>  
+    <p>密钥泄漏会使网速变慢</p>  
     
+  </div>  
+
+  <el-table :data="vpnData" style="width: 100%" class="touming">
+          <el-table-column label="序号" width="100" type="index"> </el-table-column>
+          <el-table-column label="节点秘钥" prop="node"></el-table-column>
+          <el-table-column label="节点信息" prop="nodeDescribe"></el-table-column>
+
+          <el-table-column label="操作" width="100">
+              
+              <template #default="{ row }">
+                  <!-- 编辑按钮 -->
+                  
+                  <el-button :icon="CopyDocument" circle plain type="primary" @click="copyNodeKeyAndCloseDialog(row.node)"></el-button>
+                  <!-- 删除按钮 -->
+                  <!-- <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button> -->
+              </template>
+              
+          </el-table-column>
+
+          <template #empty>
+              <el-empty description="你不是会员" />
+          </template>
+  </el-table>
+
+</template>  
+  
 <style scoped>  
+.touming{
+background-color: rgba(255, 255, 255, 0.5);
+}
 .centered-text {  
   text-align: center;  
 }  
